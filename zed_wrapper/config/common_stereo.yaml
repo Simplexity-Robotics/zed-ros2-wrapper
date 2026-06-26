@@ -59,10 +59,10 @@
             # 'zedx.yaml', 'zedxmini.yaml', 'virtual.yaml' files
 
         sensors:
-            publish_imu_tf: true # [overwritten by launch file options] enable/disable the IMU TF broadcasting
+            publish_imu_tf: false # [overwritten by launch file options] enable/disable the IMU TF broadcasting
             sensors_image_sync: false # Synchronize Sensors messages with latest published video/depth message
             sensors_pub_rate: 100. # frequency of publishing of sensors data. MAX: 400. - MIN: grab rate
-            publish_imu: true # Advertise the IMU topic that is published only if a node subscribes to it
+            publish_imu: false # Advertise the IMU topic that is published only if a node subscribes to it
             publish_imu_raw: false # Advertise the raw IMU topic that is published only if a node subscribes to it
             publish_cam_imu_transf: false # Advertise the CAMERA-IMU transformation topic that is published only if a node subscribes to it
             publish_mag: false # Advertise the magnetometer topic that is published only if a node subscribes to it
@@ -95,7 +95,7 @@
             remove_saturated_areas: true # [DYNAMIC]
             publish_depth_map: true # Advertise the depth map topics that are published only if a node subscribes to them
             publish_depth_info: false # Advertise the depth info topic that is published only if a node subscribes to it
-            publish_point_cloud: true # Advertise the point cloud topic that is published only if a node subscribes to it
+            publish_point_cloud: false # Advertise the point cloud topic that is published only if a node subscribes to it
             voxel_point_cloud: false # [DYNAMIC] When true, publish voxel-decimated point cloud instead of full resolution [ZED SDK >= 5.3]
             voxel_size_mm: -1.0 # [DYNAMIC] Voxel grid cell size in millimeters. -1 = 100mm default. Clamped to [5, max_depth_range] [ZED SDK >= 5.3]
             voxel_resolution_mode: 'STEREO_UNCERTAINTY' # [DYNAMIC] Voxelization mode: 'FIXED', 'STEREO_UNCERTAINTY', 'LINEAR' [ZED SDK >= 5.3]
@@ -106,11 +106,11 @@
             # 'zedx.yaml', 'zedxmini.yaml', 'virtual.yaml' files
 
         pos_tracking:
-            pos_tracking_enabled: true # True to enable positional tracking from start
+            pos_tracking_enabled: false # True to enable positional tracking from start
             pos_tracking_mode: 'AUTO' # 'AUTO' uses the SDK default; also supports 'GEN_1', 'GEN_3'
-            imu_fusion: true # enable/disable IMU fusion. When set to false, only the optical odometry will be used.
-            publish_tf: true # [overwritten by launch file options] publish `odom -> camera_link` TF
-            publish_map_tf: true # [overwritten by launch file options] publish `map -> odom` TF
+            imu_fusion: false # enable/disable IMU fusion. When set to false, only the optical odometry will be used.
+            publish_tf: false # [overwritten by launch file options] publish `odom -> camera_link` TF
+            publish_map_tf: false # [overwritten by launch file options] publish `map -> odom` TF
             map_frame: 'map'
             odometry_frame: 'odom'
             area_memory: true # Enable to detect loop closure
@@ -131,7 +131,7 @@
             fixed_z_value: 0.0 # Value to be used for Z coordinate if `two_d_mode` is true
             transform_time_offset: 0.0 # The value added to the timestamp of `map->odom` and `odom->camera_link` transform being generated
             reset_pose_with_svo_loop: true # Reset the camera pose the `initial_base_pose` when the SVO loop is enabled and the SVO playback reaches the end of the file.
-            publish_odom_pose: true # Advertise the odometry and pose topics that are published only if a node subscribes to them
+            publish_odom_pose: false # Advertise the odometry and pose topics that are published only if a node subscribes to them
             publish_pose_cov: false # Advertise the pose with covariance topic that is published only if a node subscribes to it
             publish_cam_path: false # Advertise the camera odometry and pose path topics that are published only if a node subscribes to them
 
@@ -185,9 +185,9 @@
 
         stream_server:
             stream_enabled: false # enable the streaming server when the camera is open
-            codec: 'H265' # different encoding types for image streaming: 'H264', 'H265'
-            port: 30000 # Port used for streaming. Port must be an even number. Any odd number will be rejected.
-            bitrate: 12500 # [1000 - 60000] Streaming bitrate (in Kbits/s) used for streaming. See https://www.stereolabs.com/docs/api/structsl_1_1StreamingParameters.html#a873ba9440e3e9786eb1476a3bfa536d0
+            codec: 'H264' # different encoding types for image streaming: 'H264', 'H265'
+            port: 30002 # Port used for streaming. Port must be an even number. Any odd number will be rejected.
+            bitrate: 8000 # [1000 - 60000] Streaming bitrate (in Kbits/s) used for streaming. See https://www.stereolabs.com/docs/api/structsl_1_1StreamingParameters.html#a873ba9440e3e9786eb1476a3bfa536d0
             gop_size: -1 # [max 256] The GOP size determines the maximum distance between IDR/I-frames. Very high GOP size will result in slightly more efficient compression, especially on static scenes. But latency will increase.
             adaptative_bitrate: false # Bitrate will be adjusted depending the number of packet dropped during streaming. If activated, the bitrate can vary between [bitrate/4, bitrate].
             chunk_size: 16084 # [1024 - 65000] Stream buffers are divided into X number of chunks where each chunk is chunk_size bytes long. You can lower chunk_size value if network generates a lot of packet lost: this will generates more chunk for a single image, but each chunk sent will be lighter to avoid inside-chunk corruption. Increasing this value can decrease latency.
