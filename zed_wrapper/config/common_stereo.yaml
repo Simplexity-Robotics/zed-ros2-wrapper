@@ -88,7 +88,7 @@
             depth_mode: 'NEURAL_LIGHT' # Matches the ZED SDK setting: 'NONE', 'NEURAL_LIGHT', 'NEURAL', 'NEURAL_PLUS' - Note: if 'NONE' all the modules that requires depth extraction are disabled by default (Pos. Tracking, Obj. Detection, Mapping, ...)
             depth_stabilization: -1 # Negative value takes SDK default, 0 is disabled - Range: [0,100]
             openni_depth_mode: false # 'false': 32bit float [meters], 'true': 16bit unsigned int [millimeters]
-            point_cloud_freq: 10.0 # [DYNAMIC] Frequency of the pointcloud publishing. This value must be <= the camera framerate. Set to 0 for no limit (= grab_frame_rate).
+            point_cloud_freq: 2.0 # [DYNAMIC] Frequency of the pointcloud publishing. This value must be <= the camera framerate. Set to 0 for no limit (= grab_frame_rate).
             point_cloud_res: 'COMPACT' # The resolution used for point cloud publishing - 'COMPACT'-Standard resolution. Optimizes processing and bandwidth, 'REDUCED'-Half resolution. Low processing and bandwidth requirements
             depth_confidence: 95 # [DYNAMIC]
             depth_texture_conf: 100 # [DYNAMIC]
@@ -106,11 +106,11 @@
             # 'zedx.yaml', 'zedxmini.yaml', 'virtual.yaml' files
 
         pos_tracking:
-            pos_tracking_enabled: false # True to enable positional tracking from start
+            pos_tracking_enabled: true # True to enable positional tracking from start
             pos_tracking_mode: 'AUTO' # 'AUTO' uses the SDK default; also supports 'GEN_1', 'GEN_3'
-            imu_fusion: false # enable/disable IMU fusion. When set to false, only the optical odometry will be used.
-            publish_tf: false # [overwritten by launch file options] publish `odom -> camera_link` TF
-            publish_map_tf: false # [overwritten by launch file options] publish `map -> odom` TF
+            imu_fusion: true # enable/disable IMU fusion. When set to false, only the optical odometry will be used.
+            publish_tf: true # [overwritten by launch file options] publish `odom -> camera_link` TF
+            publish_map_tf: true # [overwritten by launch file options] publish `map -> odom` TF
             map_frame: 'map'
             odometry_frame: 'odom'
             area_memory: true # Enable to detect loop closure
@@ -131,8 +131,8 @@
             fixed_z_value: 0.0 # Value to be used for Z coordinate if `two_d_mode` is true
             transform_time_offset: 0.0 # The value added to the timestamp of `map->odom` and `odom->camera_link` transform being generated
             reset_pose_with_svo_loop: true # Reset the camera pose the `initial_base_pose` when the SVO loop is enabled and the SVO playback reaches the end of the file.
-            publish_odom_pose: false # Advertise the odometry and pose topics that are published only if a node subscribes to them
-            publish_pose_cov: false # Advertise the pose with covariance topic that is published only if a node subscribes to it
+            publish_odom_pose: true # Advertise the odometry and pose topics that are published only if a node subscribes to them
+            publish_pose_cov: true # Advertise the pose with covariance topic that is published only if a node subscribes to it
             publish_cam_path: false # Advertise the camera odometry and pose path topics that are published only if a node subscribes to them
 
         gnss_fusion:
